@@ -1,14 +1,27 @@
-import React from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
-const ToDoForm = () => {
+const ToDoForm = ({ onAddTask }) => {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleAddTask = () => {
+    if (inputValue.trim()) {
+      onAddTask(inputValue);
+      setInputValue(''); // Clear input after adding
+    } else {
+      Alert.alert('Error', 'Task cannot be empty!', [{ text: 'OK' }]);
+    }
+  };
+
   return (
     <View style={styles.form}>
       <TextInput
         style={styles.input}
         placeholder="Add a new task..."
+        value={inputValue}
+        onChangeText={setInputValue}
       />
-      <Button title="Add" />
+      <Button title="Add" onPress={handleAddTask} />
     </View>
   );
 };
