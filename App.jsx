@@ -4,29 +4,27 @@ import ToDoList from './ToDoList';
 import ToDoForm from './ToDoForm';
 
 function App() {
+  // Update tasks to a simple array of strings as per assignment instructions
   const [tasks, setTasks] = useState([
-    { id: 1, text: 'Do laundry', completed: true },
-    { id: 2, text: 'Go to gym', completed: false },
-    { id: 3, text: 'Walk dog', completed: true },
+    'Do laundry',
+    'Go to gym',
+    'Walk dog',
   ]);
 
   const addTask = (taskText) => {
-    const newTask = {
-      id: tasks.length + 1,
-      text: taskText,
-      completed: false,
-    };
+    // Create new task as a string
+    const newTask = taskText; 
     setTasks([...tasks, newTask]);
   };
 
-  const deleteTask = (taskId) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+  const deleteTask = (taskIndex) => {
+    setTasks(tasks.filter((_, index) => index !== taskIndex)); // Filter by index
   };
 
-  const toggleTaskCompletion = (taskId) => {
-    setTasks(tasks.map(task =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    ));
+  const toggleTaskCompletion = (taskIndex) => {
+    // Handle toggling logic if necessary; since tasks are strings, you might omit this
+    // Placeholder: console.log for demonstration
+    console.log(`Toggle task completion for: ${tasks[taskIndex]}`);
   };
 
   return (

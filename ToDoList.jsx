@@ -1,18 +1,15 @@
 import React from 'react';
-import { ScrollView, Pressable, View, Text, StyleSheet, Button } from 'react-native';
+import { ScrollView, View, Text, StyleSheet } from 'react-native';
 
-const ToDoList = ({ tasks, onDeleteTask, onToggleTask }) => {
+const ToDoList = ({ tasks }) => {
   return (
     <ScrollView>
-      {tasks.map((task) => (
-        <Pressable key={task.id} onPress={() => onToggleTask(task.id)}>
-          <View style={[styles.task, task.completed && styles.completed]}>
-            <Text style={[styles.taskText, task.completed && styles.crossedText]}>
-              {task.text}
-            </Text>
-            <Button title="Delete" onPress={() => onDeleteTask(task.id)} />
-          </View>
-        </Pressable>
+      {tasks.map((task, index) => (
+        <View key={index} style={styles.task}>
+          <Text style={styles.taskText}>
+            {task} {/* Display each task */}
+          </Text>
+        </View>
       ))}
     </ScrollView>
   );
@@ -23,18 +20,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderColor: '#ccc',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  completed: {
-    backgroundColor: '#e0e0e0',
   },
   taskText: {
     fontSize: 16,
-  },
-  crossedText: {
-    textDecorationLine: 'line-through',
   },
 });
 
