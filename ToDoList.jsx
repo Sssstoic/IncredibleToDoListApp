@@ -1,14 +1,19 @@
 import React from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 
-const ToDoList = ({ tasks }) => {
+const ToDoList = ({ tasks, onDeleteTask, onToggleTask }) => {
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       {tasks.map((task, index) => (
         <View key={index} style={styles.task}>
-          <Text style={styles.taskText}>
-            {task} {/* Display each task */}
-          </Text>
+          <TouchableOpacity onPress={() => onToggleTask(index)} style={styles.textContainer}>
+            <Text style={styles.taskText}>{task}</Text>
+          </TouchableOpacity>
+          <Button
+            title="Delete"
+            onPress={() => onDeleteTask(index)}
+            color="#ff5c5c"
+          />
         </View>
       ))}
     </ScrollView>
@@ -16,10 +21,20 @@ const ToDoList = ({ tasks }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
   task: {
-    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: '#ccc',
+  },
+  textContainer: {
+    flex: 1,
   },
   taskText: {
     fontSize: 16,
