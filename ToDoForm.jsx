@@ -5,15 +5,15 @@ const ToDoForm = ({ onAddTask }) => {
   // State to manage the input value
   const [inputValue, setInputValue] = useState('');
 
-  // Function to handle adding tasks
   const handleAddTask = () => {
-    if (inputValue.trim()) {
-      onAddTask(inputValue); // Call parent function to add task
-      setInputValue(''); // Clear input field
+    const trimmedTask = inputValue.trim();
+    if (trimmedTask) {
+      onAddTask(trimmedTask);
+      setInputValue('');
     } else {
       Alert.alert('Error', 'Task cannot be empty!', [{ text: 'OK' }]);
     }
-  };
+  };  
 
   return (
     <View style={styles.form}>
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
     paddingHorizontal: 10,
-    paddingVertical: 8,
+    marginVertical: 10, // More consistent spacing
+    paddingVertical: 12, // More comfortable input area    
     marginRight: 10,
   },
 });

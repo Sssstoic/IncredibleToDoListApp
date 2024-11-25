@@ -1,47 +1,56 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import ToDoList from './ToDoList';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './HomeScreen'; // Ensure HomeScreen is in the right path
+import AboutScreen from './AboutScreen'; // Same for AboutScreen
+import ToDoList from './ToDoList'; // Keep your ToDoList and ToDoForm where they belong
 import ToDoForm from './ToDoForm';
 
 function App() {
-  // State to manage the list of tasks
+  const Stack = createStackNavigator();
+
   const [tasks, setTasks] = useState([
-    'Do laundry',
-    'Go to gym',
-    'Walk dog',
+    { text: 'Do laundry', completed: false },
+    { text: 'Go to gym', completed: false },
+    { text: 'Walk dog', completed: false },
   ]);
 
-  // Function to add a new task
+  const toggleTaskCompletion = (taskIndex) => {
+    setTasks(tasks.map((task, index) =>
+      index === taskIndex ? { ...task, completed: !task.completed } : task
+    ));
+  };
+
   const addTask = (taskText) => {
-    if (taskText.trim() && !tasks.includes(taskText)) {
-      setTasks([...tasks, taskText]); // Add new task to the list
+    if (taskText.trim() && !tasks.some(task => task.text === taskText)) {
+      setTasks([...tasks, { text: taskText, completed: false }]);
     } else {
-      alert('Task is empty or already exists!'); // Handle duplicate or empty tasks
+      alert('Task is empty or already exists!');
     }
   };
 
-  // Function to delete a task
   const deleteTask = (taskIndex) => {
-    setTasks(tasks.filter((_, index) => index !== taskIndex)); // Remove task by index
-  };
-
-  // Function to toggle task completion (optional, placeholder logic)
-  const toggleTaskCompletion = (taskIndex) => {
-    // Placeholder functionality for toggling task state
-    console.log(`Toggle task completion for: ${tasks[taskIndex]}`);
+    setTasks(tasks.filter((_, index) => index !== taskIndex));
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Pass tasks and event handlers to ToDoList */}
-      <ToDoList
-        tasks={tasks}
-        onDeleteTask={deleteTask}
-        onToggleTask={toggleTaskCompletion}
-      />
-      {/* Pass addTask function to ToDoForm */}
-      <ToDoForm onAddTask={addTask} />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home">
+          {props => (
+            <HomeScreen
+              {...props} // Ensure you pass navigation and route props
+              tasks={tasks}
+              onDeleteTask={deleteTask}
+              onToggleTask={toggleTaskCompletion}
+              onAddTask={addTask}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="About" component={AboutScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
