@@ -14,7 +14,6 @@ const ToDoList = ({ tasks, onDeleteTask, onToggleTask }) => {
     <ScrollView style={styles.container}>
       {tasks.map((task, index) => (
         <View key={index} style={styles.task}>
-          {/* Touchable for toggling task completion */}
           <TouchableOpacity
             onPress={() => onToggleTask(index)}
             style={styles.textContainer}
@@ -22,14 +21,12 @@ const ToDoList = ({ tasks, onDeleteTask, onToggleTask }) => {
             <Text
               style={[
                 styles.taskText,
-                task.completed && styles.completedTaskText, // Apply completed styles conditionally
+                task.completed && styles.completedTaskText,
               ]}
             >
               {task.text}
             </Text>
           </TouchableOpacity>
-
-          {/* Delete button */}
           <Button
             title="Delete"
             onPress={() => onDeleteTask(index)}
@@ -62,8 +59,8 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   completedTaskText: {
-    textDecorationLine: 'line-through', // Strike-through for completed tasks
-    color: '#aaa', // Dimmed color for completed tasks
+    textDecorationLine: 'line-through',
+    color: '#aaa',
   },
   emptyContainer: {
     flex: 1,

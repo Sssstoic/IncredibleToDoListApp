@@ -12,7 +12,10 @@ const MainLayout = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: '#F9F9F9',
+    paddingHorizontal: 20,
+    paddingTop: 50, 
+    paddingBottom: 20, 
   },
 });
 

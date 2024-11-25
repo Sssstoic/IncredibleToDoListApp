@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './HomeScreen'; // Ensure HomeScreen is in the right path
-import AboutScreen from './AboutScreen'; // Same for AboutScreen
-import ToDoList from './ToDoList'; // Keep your ToDoList and ToDoForm where they belong
-import ToDoForm from './ToDoForm';
+import HomeScreen from './HomeScreen';
+import AboutScreen from './AboutScreen';
 
 function App() {
   const Stack = createStackNavigator();
@@ -40,7 +37,7 @@ function App() {
         <Stack.Screen name="Home">
           {props => (
             <HomeScreen
-              {...props} // Ensure you pass navigation and route props
+              {...props}
               tasks={tasks}
               onDeleteTask={deleteTask}
               onToggleTask={toggleTaskCompletion}
@@ -53,13 +50,5 @@ function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#f9f9f9',
-  },
-});
 
 export default App;
